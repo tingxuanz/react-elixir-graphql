@@ -3,8 +3,8 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import client from './apolloClient';
-import Location from './pages/Location';
 import Home from './pages/Home';
+import Result from './pages/Result';
 
 const App: React.FC = () => {
   return (
@@ -14,8 +14,8 @@ const App: React.FC = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/location">
-            <Location />
+          <Route path="/result">
+            <Result />
           </Route>
         </Switch>
       </Router>
