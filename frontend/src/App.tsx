@@ -1,20 +1,26 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
 
-import './App.css';
-import apolloClient from './apolloClient';
-import ExchangeRates from './components/Test';
+import client from './apolloClient';
+import Location from './pages/Location';
+import Home from './pages/Home';
 
-class App extends React.Component {
-  render() {
-    return (
-      <ApolloProvider client={apolloClient}>
-        <div>
-          <ExchangeRates />
-        </div>
-      </ApolloProvider>
-    );
-  }
+const App: React.FC = () => {
+  return (
+    <ApolloProvider client={client}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/location">
+            <Location />
+          </Route>
+        </Switch>
+      </Router>
+    </ApolloProvider>
+  );
 }
 
 export default App;

@@ -40,5 +40,6 @@ defmodule BackendWeb.Endpoint do
     key: "_backend_key",
     signing_salt: "Gjn7ZSL5"
 
+  plug CORSPlug, origin: ["http://localhost:3000"]
   plug BackendWeb.Router
 end
