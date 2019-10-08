@@ -1,21 +1,12 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/react-testing';
-import { act, render, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
+import { wait } from '../../testHelper';
 import { GET_LOCATION } from '../../queries';
 import Location from '../../components/Location';
 
 const address = '70 Stephenson Street, Cremorne, VIC, Australia';
-
-// handle warning
-// https://trojanowski.dev/apollo-hooks-testing-without-act-warnings/
-async function wait(ms = 0) {
-  await act(() => {
-    return new Promise(resolve => {
-      setTimeout(resolve, ms);
-    });
-  });
-}
 
 afterEach(cleanup);
 
@@ -44,7 +35,7 @@ it('should render error', async () => {
   );
   await wait(0);
   expect(container.textContent).toMatch('Error');
-})
+});
 
 it('should render data', async () => {
   const mock = {
@@ -66,5 +57,6 @@ it('should render data', async () => {
   expect(container.textContent).toMatch('Latitude: -37');
   expect(container.textContent).toMatch('Longitude: 144');
 
+});
 
-})
+

@@ -20,7 +20,10 @@ const Result: React.FC = () => {
       <Typography variant="h6" gutterBottom>
         Address Lookup Result
       </Typography>
-      {(data && data.userInput) ? <Location address={data.userInput} /> : <p>No address provided yet</p>}
+      {(data && data.userInput) 
+        ? <Location address={data.userInput} /> 
+        : <p>No address provided yet</p>
+      }
       <Button 
         variant="contained"
         color="primary"
