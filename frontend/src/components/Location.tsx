@@ -1,8 +1,13 @@
 import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
-import { GET_LOCATION, GET_USERINPUT } from '../queries';
+import { GET_LOCATION } from '../queries';
 import Loading from './Loading';
+import ShowError from './ShowError';
+
+interface LocationProps {
+  address: string;
+}
 
 interface LocationData {
   location: {
@@ -11,20 +16,18 @@ interface LocationData {
   }
 }
 
-const Location: React.FC = () => {
-  const result = useQuery(GET_USERINPUT);
-  const userInput = result.data.userInput;
-  const { loading, data, error } = useQuery<LocationData>(GET_LOCATION, { variables: { address: userInput } });
+const Location: React.FC<LocationProps> = ({ address }) => {
+  const { loading, data, error } = useQuery<LocationData>(GET_LOCATION, { variables: { address } });
   if (loading) return <Loading />;
-  if (error) return <p>Error, please try again</p>;
+  if (error) return <ShowError />;
   return (
     <div>
       {
         data &&  
           (
             <Fragment>
-              <p>Latitude: {data.location.lat}</p>
-              <p>Longitude: {data.location.lon}</p>
+              <p id="lat">Latitude: {data.location.lat}</p>
+              <p id="lon">Longitude: {data.location.lon}</p>
             </Fragment>
           )
       }

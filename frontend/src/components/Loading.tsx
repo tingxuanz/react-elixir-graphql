@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Loading: React.FC = () => {
   return (
-    <CircularProgress />
+    <CircularProgress data-testid="loading" />
   )
 }
 
