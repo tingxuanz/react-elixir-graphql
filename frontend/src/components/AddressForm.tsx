@@ -11,6 +11,10 @@ interface AddressFormState {
   suburb: string;
   state: string;
   country: string;
+  addressError: boolean;
+  suburbError: boolean;
+  stateError: boolean;
+  countryError: boolean,
 }
 
 class AddressForm extends Component<{}, AddressFormState> {

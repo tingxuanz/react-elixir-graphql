@@ -1,35 +1,35 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 
+import { GET_LOCATION, GET_USERINPUT } from '../queries';
 import Loading from './Loading';
 
-const GET_USERINPUT = gql`
-  {
-    userInput @client
+interface LocationData {
+  location: {
+    lat: number;
+    lon: number;
   }
-`;
-const GET_LOCATION = gql`
-  query getLocation($address: String!) {
-    location(address: $address) {
-      lat
-      lon
-    }
-  }
-`;
+}
 
 const Location: React.FC = () => {
   const result = useQuery(GET_USERINPUT);
   const userInput = result.data.userInput;
-  const { loading, data, error } = useQuery(GET_LOCATION, { variables: { address: userInput } });
+  const { loading, data, error } = useQuery<LocationData>(GET_LOCATION, { variables: { address: userInput } });
   if (loading) return <Loading />;
-  if (error) return <p>{error.message}</p>
+  if (error) return <p>Error, please try again</p>;
   return (
     <div>
-      <p>Latitude: {data.location.lat}</p>
-      <p>Longitude: {data.location.lon}</p>
+      {
+        data &&  
+          (
+            <Fragment>
+              <p>Latitude: {data.location.lat}</p>
+              <p>Longitude: {data.location.lon}</p>
+            </Fragment>
+          )
+      }
     </div>
-  ) 
+  );
 }
 
 export default Location;
